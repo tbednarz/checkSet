@@ -11,7 +11,7 @@ const fs = require("fs");
 const checkUtilities = require("./check.js");
 
 yargs.command({
-  command: "add-check",
+  command: "add",
   describe: "Adds check to be broken down",
   builder: {
     amount: {
@@ -31,6 +31,21 @@ yargs.command({
 });
 
 yargs.command({
+  command: "read",
+  describe: "Read a check",
+  builder: {
+    week: {
+      describe: "week of check",
+      demandOption: true,
+      type: "string"
+    }
+  },
+  handler(argv) {
+    checkUtilities.readCheck(argv.week);
+  }
+});
+
+yargs.command({
   command: "list",
   describe: "Lists checks",
   handler() {
@@ -41,8 +56,30 @@ yargs.command({
 yargs.command({
   command: "divide",
   describe: "Breaks check down to 50-30-20 rule",
+  builder: {
+    week: {
+      describe: "week of check",
+      demandOption: true,
+      type: "string"
+    }
+  },
   handler(argv) {
     checkUtilities.divideCheck(argv.amount);
+  }
+});
+
+yargs.command({
+  command: "remove",
+  describe: "Remove a check",
+  builder: {
+    week: {
+      describe: "Week of check",
+      demandOption: true,
+      type: "string"
+    }
+  },
+  handler(argv) {
+    checkUtilities.removeCheck(argv.week);
   }
 });
 

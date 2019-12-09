@@ -10,9 +10,27 @@ const addCheck = (amount, week) => {
       week: week
     });
     saveChecks(checks);
-    console.log("check added");
+    console.log(chalk.whiteBright("check added"));
   } else {
     console.log(chalk.red.inverse("Check date taken"));
+  }
+};
+
+const readCheck = week => {
+  const checks = loadChecks();
+  const matchingCheck = checks.find(check => check.week === week);
+  if (matchingCheck) {
+    console.log(
+      chalk.greenBright(
+        chalk.yellow("Week: ") +
+          matchingCheck.week +
+          "\n" +
+          chalk.yellow("Amount: ") +
+          matchingCheck.amount
+      )
+    );
+  } else {
+    console.log(chalk.red("no check found"));
   }
 };
 
@@ -36,19 +54,40 @@ const listChecks = () => {
   console.log(chalk.yellowBright("Your Checks: "));
 
   checks.forEach(check => {
-    console.log(chalk.greenBright("Week: " + check.week + "\n" + check.amount));
+    console.log(
+      chalk.greenBright(
+        chalk.yellow("Week: ") +
+          check.week +
+          "\n" +
+          chalk.yellow("Amount: ") +
+          check.amount
+      )
+    );
     console.log(chalk.redBright("--------------------"));
   });
 };
 
-const divideCheck = check => {
-  console.log("dividing check");
+const removeCheck = week => {
+  const checks = loadChecks();
+  const matchingCheck = checks.filter(check => check.week != week);
+
+  if (matchingCheck.length < checks.length) {
+    saveChecks(matchingCheck);
+    console.log(
+      chalk.yellow.italic.bold(
+        "check from week " + week + chalk.yellow.italic.bold(" removed.")
+      )
+    );
+  } else {
+    console.log(chalk.red.bold("no check removed"));
+  }
 };
 
 module.exports = {
-  addCheck: addCheck,
-  saveChecks: saveChecks,
-  loadChecks: loadChecks,
-  listChecks: listChecks,
-  divideCheck: divideCheck
+  addCheck,
+  saveChecks,
+  loadChecks,
+  listChecks,
+  readCheck,
+  removeCheck
 };
