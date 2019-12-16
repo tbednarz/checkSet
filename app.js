@@ -5,9 +5,7 @@
 // 5 to 10 percent for debt repayment
 // The remainder for discretionary spending
 
-const chalk = require("chalk");
 const yargs = require("yargs");
-const fs = require("fs");
 const checkUtilities = require("./check.js");
 
 yargs.command({

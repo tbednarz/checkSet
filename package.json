@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^3.0.0",
+    "figlet": "^1.2.4",
     "fs": "0.0.1-security",
     "yargs": "^15.0.2"
   }
