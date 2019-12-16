@@ -6,8 +6,14 @@
 // The remainder for discretionary spending
 
 const yargs = require("yargs");
+
+//checkUtilites is all the crud functions
 const checkUtilities = require("./check.js");
 
+/**
+ * define exposed commands
+ * builder is to set up parameters
+ */
 yargs.command({
   command: "a",
   describe: "Adds check to be broken down",
