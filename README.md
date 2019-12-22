@@ -1,5 +1,5 @@
 # checkSet
-Command Line tool used to breakup paychecks using the 50-30-20 rule
+command line tool to keep track of paychecks
 
 
 ```
