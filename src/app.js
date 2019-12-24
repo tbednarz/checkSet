@@ -8,7 +8,7 @@
 const yargs = require("yargs");
 
 //checkUtilites is all the crud functions
-const checkUtilities = require("./check.js");
+const checkUtilities = require("../check.js");
 
 /**
  * define exposed commands
