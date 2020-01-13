@@ -116,11 +116,11 @@ const removeCheck = week => {
   }
 };
 
-module.exports = check;
-
-// addCheck,
-// saveChecks,
-// loadChecks,
-// listChecks,
-// readCheck,
-// removeCheck
+module.exports = {
+  addCheck,
+  saveChecks,
+  loadChecks,
+  listChecks,
+  readCheck,
+  removeCheck
+};
