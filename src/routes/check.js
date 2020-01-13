@@ -11,7 +11,7 @@ router.post("/checks", auth, async (req, res) => {
   });
   try {
     await check.save();
-    res.status(201).send({ check });
+    res.status(201).send(check);
   } catch (e) {
     res.status(400).send(e);
   }
