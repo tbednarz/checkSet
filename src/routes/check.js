@@ -17,4 +17,13 @@ router.post("/checks", auth, async (req, res) => {
   }
 });
 
+router.get("/checks", auth, async (req, res) => {
+  try {
+    await req.user.populate("checks").execPopulate();
+    res.send(req.user.checks);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
 module.exports = router;

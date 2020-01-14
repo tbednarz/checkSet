@@ -42,7 +42,7 @@ router.post("/users/logout", auth, async (req, res) => {
 });
 
 router.get("/users/me", auth, async (req, res) => {
-  res.send(req.user);
+  await res.send(req.user);
 });
 
 module.exports = router;
