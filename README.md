@@ -5,28 +5,11 @@ or send http requests with authorized login to store in a database
 
 ```
 Commands:
-  app.js add     Adds check to be broken down
-  app.js read    Read a check
-  app.js list    Lists checks
-  app.js remove  Remove a check
-  ```
-```
-node app.js add --week=1 --amount=300
-
-node app.js list
-
-Your Checks: 
-Week: 1
-Amount: 300
---------------------
-
-node app.js read --week=1
-
-Week: 1
-Amount: 300
-
-node app.js remove --week=1
-
-check from week 1 removed.
+  app.js a  --week=ENTER-WEEK --amount=ENTER-AMOUNT  Adds check to be broken down
+  app.js r  --week=ENTER-WEEK                        Read a check
+  app.js l                                           Lists checks
+  app.js rm --week=ENTER-WEEK                        Remove a check
+  app.js rmall                                       remove all checks
+  app.js sort                                        Sorts checks.json just incase it gets out of wack
 
 ```
