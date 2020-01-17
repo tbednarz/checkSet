@@ -1,9 +1,17 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
+/*
+  AUTHORIZATION
+  Pull token from the authorization header and then replace the token with ""
+  decode the token with jwt.verify()
+  find the user from the id and the token
+  throw an error if there isnt a user
+  else authorize the user
+  if not authorized send a message
+*/
 const auth = async (req, res, next) => {
   try {
-    //gets header named "Authorization"
     const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = jwt.verify(token, "shh");
     const user = await User.findOne({

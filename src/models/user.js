@@ -3,7 +3,14 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const Check = require("./check");
-
+/*
+  userSchema 
+  name: is a required string, trim white space
+  email: required unique string, trim white space, lowercase, validate email form
+  password : make sure it doesnt contain "password"
+  age: meh 
+  tokens: array of tokens from generateAuthToken();
+*/
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -51,6 +58,7 @@ const userSchema = new mongoose.Schema({
     }
   ]
 });
+
 userSchema.virtual("checks", {
   ref: "Check",
   localField: "_id",

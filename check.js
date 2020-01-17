@@ -15,6 +15,7 @@ const addCheck = (amount, week) => {
       week: week
     });
     saveChecks(checks);
+    sortChecks(checks);
     console.log(chalk.whiteBright("check added"));
   } else {
     console.log(chalk.red.inverse("Check date taken"));
@@ -51,6 +52,14 @@ const saveChecks = check => {
   const dataJSON = JSON.stringify(check);
   fs.writeFileSync("checks.json", dataJSON);
 };
+
+const sortChecks = () => {
+  const checks = loadChecks();
+  let newChecks = checks.sort(function(a, b) {
+    return a.week - b.week;
+  });
+  saveChecks(newChecks);
+};
 /**
  * loadChecks reads checks.json
  * then converts to string
@@ -60,6 +69,7 @@ const loadChecks = () => {
   try {
     const buffer = fs.readFileSync("checks.json");
     const dataJSON = buffer.toString();
+
     return JSON.parse(dataJSON);
   } catch (error) {
     return [];
@@ -79,7 +89,6 @@ const listChecks = () => {
       return;
     }
     console.log(chalk.greenBright(data));
-
     checks.forEach(check => {
       console.log(
         chalk.greenBright(
@@ -115,6 +124,13 @@ const removeCheck = week => {
     console.log(chalk.red.bold("no check removed"));
   }
 };
+const removeAllChecks = () => {
+  if (loadChecks().length === 0) {
+    console.log(chalk.red.bold("Checks are empty"));
+  }
+  let newChecks = [];
+  saveChecks(newChecks);
+};
 
 module.exports = {
   addCheck,
@@ -122,5 +138,7 @@ module.exports = {
   loadChecks,
   listChecks,
   readCheck,
-  removeCheck
+  removeCheck,
+  removeAllChecks,
+  sortChecks
 };

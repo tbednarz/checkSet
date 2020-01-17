@@ -86,5 +86,20 @@ yargs.command({
     checkUtilities.removeCheck(argv.week);
   }
 });
+yargs.command({
+  command: "rmall",
+  describe: "remove all checks",
+  handler() {
+    checkUtilities.removeAllChecks();
+  }
+});
+
+yargs.command({
+  command: "sort",
+  describe: "sorts checks by week",
+  handler() {
+    checkUtilities.sortChecks();
+  }
+});
 
 yargs.parse();
