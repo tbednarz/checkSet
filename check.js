@@ -59,6 +59,7 @@ const sortChecks = () => {
     return a.week - b.week;
   });
   saveChecks(newChecks);
+  console.log(chalk.yellow("Sorted Checks"));
 };
 /**
  * loadChecks reads checks.json
