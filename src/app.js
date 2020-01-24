@@ -8,7 +8,7 @@
 const yargs = require("yargs");
 
 //checkUtilites is all the crud functions
-const checkUtilities = require("../check.js");
+const checkUtilities = require("./checks/check");
 
 /**
  * define exposed commands
@@ -29,6 +29,9 @@ yargs.command({
       type: "string"
     }
   },
+  /*
+    handler takes in the arguments and performs operations
+  */
   handler(argv) {
     checkUtilities.addCheck(argv.amount, argv.week);
   }

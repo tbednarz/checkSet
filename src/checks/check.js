@@ -1,6 +1,5 @@
 const chalk = require("chalk");
 const fs = require("fs");
-const figlet = require("figlet");
 
 /**
  * Loads check and looks for duplicates
@@ -69,8 +68,8 @@ const sortChecks = () => {
 const loadChecks = () => {
   try {
     const buffer = fs.readFileSync("checks.json");
-    const dataJSON = buffer.toString();
 
+    const dataJSON = buffer.toString();
     return JSON.parse(dataJSON);
   } catch (error) {
     return [];
@@ -83,27 +82,21 @@ const loadChecks = () => {
  */
 const listChecks = () => {
   const checks = loadChecks();
-  figlet("Listing Checks", function(err, data) {
-    if (err) {
-      console.log("Something went wrong...");
-      console.dir(err);
-      return;
-    }
-    console.log(chalk.greenBright(data));
-    checks.forEach(check => {
-      console.log(
-        chalk.greenBright(
-          chalk.yellow("Week: ") +
-            check.week +
-            "\n" +
-            chalk.yellow("Amount: ") +
-            check.amount
-        )
-      );
-      console.log(chalk.redBright("--------------------"));
-    });
+  console.log(chalk.green("Fetched Checks: "));
+  checks.forEach(check => {
+    console.log(
+      chalk.greenBright(
+        chalk.yellow("Week: ") +
+          check.week +
+          "\n" +
+          chalk.yellow("Amount: ") +
+          check.amount
+      )
+    );
+    console.log(chalk.redBright("--------------------"));
   });
 };
+
 /**
  * removeCheck loads checks in and filters for checks
  * that arent equal to week parameter
