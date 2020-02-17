@@ -4,14 +4,17 @@ const fs = require("fs");
 /**
  * Loads check and looks for duplicates
  * if no duplicate new check is pushed and saved to checks.json
+ * add date of creation
+ * sort checks
  */
 const addCheck = (amount, week) => {
   const checks = loadChecks();
   const duplicateCheck = checks.find(check => check.week === week);
   if (!duplicateCheck) {
     checks.push({
-      amount: amount,
-      week: week
+      amount: "$" + amount,
+      week: week,
+      date: Date(Date.now())
     });
     saveChecks(checks);
     sortChecks(checks);
@@ -34,8 +37,10 @@ const readCheck = week => {
         chalk.yellow("Week: ") +
           matchingCheck.week +
           "\n" +
-          chalk.yellow("Amount: ") +
-          matchingCheck.amount
+          chalk.yellow("Amount: $") +
+          matchingCheck.amount +
+          chalk.yellow("Date: ") +
+          matchingCheck.date
       )
     );
   } else {
@@ -60,6 +65,7 @@ const sortChecks = () => {
   saveChecks(newChecks);
   console.log(chalk.yellow("Sorted Checks"));
 };
+
 /**
  * loadChecks reads checks.json
  * then converts to string
@@ -68,7 +74,6 @@ const sortChecks = () => {
 const loadChecks = () => {
   try {
     const buffer = fs.readFileSync("checks.json");
-
     const dataJSON = buffer.toString();
     return JSON.parse(dataJSON);
   } catch (error) {
@@ -90,7 +95,10 @@ const listChecks = () => {
           check.week +
           "\n" +
           chalk.yellow("Amount: ") +
-          check.amount
+          check.amount +
+          "\n" +
+          chalk.green("Date: ") +
+          check.date
       )
     );
     console.log(chalk.redBright("--------------------"));

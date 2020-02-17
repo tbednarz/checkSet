@@ -27,6 +27,11 @@ yargs.command({
       describe: "Week of check",
       demandOption: true,
       type: "string"
+    },
+    date: {
+      describe: "Time check was created",
+
+      type: "string"
     }
   },
   /*
@@ -60,20 +65,20 @@ yargs.command({
   }
 });
 
-yargs.command({
-  command: "d",
-  describe: "Breaks check down to 50-30-20 rule",
-  builder: {
-    week: {
-      describe: "week of check",
-      demandOption: true,
-      type: "string"
-    }
-  },
-  handler(argv) {
-    checkUtilities.divideCheck(argv.amount);
-  }
-});
+// yargs.command({
+//   command: "d",
+//   describe: "Breaks check down to 50-30-20 rule",
+//   builder: {
+//     week: {
+//       describe: "week of check",
+//       demandOption: true,
+//       type: "string"
+//     }
+//   },
+//   handler(argv) {
+//     checkUtilities.divideCheck(argv.amount);
+//   }
+// });
 
 yargs.command({
   command: "rm",
