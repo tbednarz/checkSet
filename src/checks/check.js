@@ -9,12 +9,12 @@ const fs = require("fs");
  */
 const addCheck = (amount, number) => {
   const checks = loadChecks();
-  const duplicateCheck = checks.find(check => check.number === number);
+  const duplicateCheck = checks.find((check) => check.number === number);
   if (!duplicateCheck) {
     checks.push({
       amount: "$" + amount,
       number: number,
-      date: Date(Date.now())
+      date: Date(Date.now()),
     });
     saveChecks(checks);
     sortChecks(checks);
@@ -28,9 +28,9 @@ const addCheck = (amount, number) => {
  * if matching check log number and amount values
  * else log error
  */
-const readCheck = number => {
+const readCheck = (number) => {
   const checks = loadChecks();
-  const matchingCheck = checks.find(check => check.number === number);
+  const matchingCheck = checks.find((check) => check.number === number);
   if (matchingCheck) {
     console.log(
       chalk.greenBright(
@@ -52,14 +52,14 @@ const readCheck = number => {
  * writefilesync writes dataJSON to checks.json
  * if checks.json doesnt exist it will be made
  */
-const saveChecks = check => {
+const saveChecks = (check) => {
   const dataJSON = JSON.stringify(check);
   fs.writeFileSync("checks.json", dataJSON);
 };
 
 const sortChecks = () => {
   const checks = loadChecks();
-  let newChecks = checks.sort(function(a, b) {
+  let newChecks = checks.sort(function (a, b) {
     return a.number - b.number;
   });
   saveChecks(newChecks);
@@ -80,6 +80,14 @@ const loadChecks = () => {
     return [];
   }
 };
+const getTaken = () => {
+  let checks = loadChecks();
+  checks.forEach((check) => {
+    console.log("Taken checks: " + check.number);
+  });
+};
+getTaken();
+
 /**
  * loads checks
  * uses figlet to log operation performed
@@ -88,7 +96,7 @@ const loadChecks = () => {
 const listChecks = () => {
   const checks = loadChecks();
   console.log(chalk.green("Fetched Checks: "));
-  checks.forEach(check => {
+  checks.forEach((check) => {
     console.log(
       chalk.greenBright(
         chalk.yellow("Number: ") +
@@ -111,9 +119,9 @@ const listChecks = () => {
  * matchingCheck = checks - check that matches
  * save matchingCheck and log which numbers check was removed
  */
-const removeCheck = number => {
+const removeCheck = (number) => {
   const checks = loadChecks();
-  const matchingCheck = checks.filter(check => check.number != number);
+  const matchingCheck = checks.filter((check) => check.number != number);
 
   if (matchingCheck.length < checks.length) {
     saveChecks(matchingCheck);
@@ -142,5 +150,5 @@ module.exports = {
   readCheck,
   removeCheck,
   removeAllChecks,
-  sortChecks
+  sortChecks,
 };
