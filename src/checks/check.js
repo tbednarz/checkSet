@@ -7,13 +7,13 @@ const fs = require("fs");
  * add date of creation
  * sort checks
  */
-const addCheck = (amount, week) => {
+const addCheck = (amount, number) => {
   const checks = loadChecks();
-  const duplicateCheck = checks.find(check => check.week === week);
+  const duplicateCheck = checks.find(check => check.number === number);
   if (!duplicateCheck) {
     checks.push({
       amount: "$" + amount,
-      week: week,
+      number: number,
       date: Date(Date.now())
     });
     saveChecks(checks);
@@ -24,18 +24,18 @@ const addCheck = (amount, week) => {
   }
 };
 /**
- * loads checks and looks for check with matching week
- * if matching check log week and amount values
+ * loads checks and looks for check with matching number
+ * if matching check log number and amount values
  * else log error
  */
-const readCheck = week => {
+const readCheck = number => {
   const checks = loadChecks();
-  const matchingCheck = checks.find(check => check.week === week);
+  const matchingCheck = checks.find(check => check.number === number);
   if (matchingCheck) {
     console.log(
       chalk.greenBright(
-        chalk.yellow("Week: ") +
-          matchingCheck.week +
+        chalk.yellow("number: ") +
+          matchingCheck.number +
           "\n" +
           chalk.yellow("Amount: $") +
           matchingCheck.amount +
@@ -60,7 +60,7 @@ const saveChecks = check => {
 const sortChecks = () => {
   const checks = loadChecks();
   let newChecks = checks.sort(function(a, b) {
-    return a.week - b.week;
+    return a.number - b.number;
   });
   saveChecks(newChecks);
   console.log(chalk.yellow("Sorted Checks"));
@@ -83,7 +83,7 @@ const loadChecks = () => {
 /**
  * loads checks
  * uses figlet to log operation performed
- * for each check log the week and amount
+ * for each check log the number and amount
  */
 const listChecks = () => {
   const checks = loadChecks();
@@ -91,8 +91,8 @@ const listChecks = () => {
   checks.forEach(check => {
     console.log(
       chalk.greenBright(
-        chalk.yellow("Week: ") +
-          check.week +
+        chalk.yellow("Number: ") +
+          check.number +
           "\n" +
           chalk.yellow("Amount: ") +
           check.amount +
@@ -107,19 +107,19 @@ const listChecks = () => {
 
 /**
  * removeCheck loads checks in and filters for checks
- * that arent equal to week parameter
+ * that arent equal to number parameter
  * matchingCheck = checks - check that matches
- * save matchingCheck and log which weeks check was removed
+ * save matchingCheck and log which numbers check was removed
  */
-const removeCheck = week => {
+const removeCheck = number => {
   const checks = loadChecks();
-  const matchingCheck = checks.filter(check => check.week != week);
+  const matchingCheck = checks.filter(check => check.number != number);
 
   if (matchingCheck.length < checks.length) {
     saveChecks(matchingCheck);
     console.log(
       chalk.yellow.italic.bold(
-        "check from week " + week + chalk.yellow.italic.bold(" removed.")
+        "check from number " + number + chalk.yellow.italic.bold(" removed.")
       )
     );
   } else {

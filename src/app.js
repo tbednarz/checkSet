@@ -21,40 +21,40 @@ yargs.command({
     amount: {
       describe: "Check amount",
       demandOption: true,
-      type: "string"
+      type: "string",
     },
-    week: {
-      describe: "Week of check",
+    number: {
+      describe: "Number your checks",
       demandOption: true,
-      type: "string"
+      type: "string",
     },
     date: {
       describe: "Time check was created",
 
-      type: "string"
-    }
+      type: "string",
+    },
   },
   /*
     handler takes in the arguments and performs operations
   */
   handler(argv) {
-    checkUtilities.addCheck(argv.amount, argv.week);
-  }
+    checkUtilities.addCheck(argv.amount, argv.number);
+  },
 });
 
 yargs.command({
   command: "r",
   describe: "Read a check",
   builder: {
-    week: {
-      describe: "week of check",
+    number: {
+      describe: "number of check",
       demandOption: true,
-      type: "string"
-    }
+      type: "string",
+    },
   },
   handler(argv) {
-    checkUtilities.readCheck(argv.week);
-  }
+    checkUtilities.readCheck(argv.number);
+  },
 });
 
 yargs.command({
@@ -62,15 +62,15 @@ yargs.command({
   describe: "Lists checks",
   handler() {
     checkUtilities.listChecks();
-  }
+  },
 });
 
 // yargs.command({
 //   command: "d",
 //   describe: "Breaks check down to 50-30-20 rule",
 //   builder: {
-//     week: {
-//       describe: "week of check",
+//     number: {
+//       describe: "number of check",
 //       demandOption: true,
 //       type: "string"
 //     }
@@ -84,30 +84,50 @@ yargs.command({
   command: "rm",
   describe: "Remove a check",
   builder: {
-    week: {
-      describe: "Week of check",
+    number: {
+      describe: "number of check",
       demandOption: true,
-      type: "string"
-    }
+      type: "string",
+    },
   },
   handler(argv) {
-    checkUtilities.removeCheck(argv.week);
-  }
+    checkUtilities.removeCheck(argv.number);
+  },
 });
 yargs.command({
   command: "rmall",
   describe: "remove all checks",
   handler() {
     checkUtilities.removeAllChecks();
-  }
+  },
 });
 
 yargs.command({
   command: "sort",
-  describe: "sorts checks by week",
+  describe: "sorts checks by number",
   handler() {
     checkUtilities.sortChecks();
-  }
+  },
 });
+// yargs.command({
+//   command: "addUser",
+//   describe: "Make a new user",
+//   builder: {
+//     name: {
+//       describe: "user name",
+//       demandOption: true,
+//       type: "string",
+//     },
+//     checks: {
+//       describe: "Number your checks",
+//       demandOption: true,
+//       type: "json"
+//     },
+//     date: {
+//       describe: "Time check was created",
 
+//       type: "string",
+//     },
+
+// });
 yargs.parse();
