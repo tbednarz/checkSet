@@ -8,7 +8,7 @@
 const yargs = require("yargs");
 
 //checkUtilites is all the crud functions
-const checkUtilities = require("./checks/check");
+const checkUtilities = require("./routers/check");
 
 /**
  * define exposed commands

@@ -1,57 +1,51 @@
+const express = require("express");
+const Check = require("../models/check");
+const router = new express.Router();
+
 const chalk = require("chalk");
 const fs = require("fs");
 
 /**
- * Loads check and looks for duplicates
- * if no duplicate new check is pushed and saved to checks.json
- * add date of creation
- * sort checks
+CREATE NEW CHECK
  */
-const addCheck = (amount, number) => {
-  const checks = loadChecks();
-  const duplicateCheck = checks.find((check) => check.number === number);
-  if (!duplicateCheck) {
-    checks.push({
-      amount: "$" + amount,
-      number: number,
-      date: Date(Date.now()),
+router.post("/checks", async (req, res) => {
+  const check = new Check({ ...req.body });
+  try {
+    await check.save();
+    res.status(201).send(check);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+});
+
+//GET ALL CHECKS
+
+router.get("/checks", async (req, res) => {
+  try {
+    const checks = await Check.find();
+    res.send(checks);
+    res.status(200).send();
+  } catch (e) {
+    res.status(400).send();
+  }
+});
+
+//GET CHECK BY ID
+
+router.get("/checks/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const check = await Check.findOne({
+      _id,
     });
-    saveChecks(checks);
-    sortChecks(checks);
-    console.log(chalk.whiteBright("check added"));
-  } else {
-    console.log(chalk.red.inverse("Check date taken"));
+    if (!check) {
+      return res.status(400).send();
+    }
+    res.send(check);
+  } catch (e) {
+    res.status(500).send(e);
   }
-};
-/**
- * loads checks and looks for check with matching number
- * if matching check log number and amount values
- * else log error
- */
-const readCheck = (number) => {
-  const checks = loadChecks();
-  const matchingCheck = checks.find((check) => check.number === number);
-  if (matchingCheck) {
-    console.log(
-      chalk.greenBright(
-        chalk.yellow("number: ") +
-          matchingCheck.number +
-          "\n" +
-          chalk.yellow("Amount: $") +
-          matchingCheck.amount +
-          chalk.yellow("Date: ") +
-          matchingCheck.date
-      )
-    );
-  } else {
-    console.log(chalk.red("no check found"));
-  }
-};
-/**
- * saveChecks stringifies check paramenter,
- * writefilesync writes dataJSON to checks.json
- * if checks.json doesnt exist it will be made
- */
+});
 const saveChecks = (check) => {
   const dataJSON = JSON.stringify(check);
   fs.writeFileSync("checks.json", dataJSON);
@@ -86,7 +80,6 @@ const getTaken = () => {
     console.log("Taken checks: " + check.number);
   });
 };
-getTaken();
 
 /**
  * loads checks
@@ -142,13 +135,4 @@ const removeAllChecks = () => {
   saveChecks(newChecks);
 };
 
-module.exports = {
-  addCheck,
-  saveChecks,
-  loadChecks,
-  listChecks,
-  readCheck,
-  removeCheck,
-  removeAllChecks,
-  sortChecks,
-};
+module.exports = router;
