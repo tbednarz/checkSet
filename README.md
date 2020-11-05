@@ -1,7 +1,7 @@
 # checkSet
 command line tool to keep track of paychecks.
 Currently can use command line to created json file holding checks
-or send http requests with authorized login to store in a database
+or  ~~send http requests with authorized login to store in a database~~
 
 ```
 Commands:
