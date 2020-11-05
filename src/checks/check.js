@@ -1,5 +1,64 @@
 const chalk = require("chalk");
 const fs = require("fs");
+const readline = require("readline");
+// const { check } = require("yargs");
+
+console.log("Choose a command: ");
+console.log(
+  "'a' to add a check\n" +
+    "'l' to list checks \n" +
+    "'rm' to remove a check \n" +
+    "'rmall' to remove all checks \n" +
+    "'sort' to sort checks \n"
+);
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.question("checkset > ", (answer) => {
+  // TODO: switch case for command
+  switch (answer) {
+    //add a check
+    case "a":
+      rl.question("What is your check amount? ", (amount) => {
+        if (amount < 0) {
+          console.log("number must be positive");
+        } else {
+          rl.question(
+            "What would you like to number your check? ",
+            (number) => {
+              addCheck(amount, number);
+            }
+          );
+        }
+      });
+      break;
+    //remove a check
+    case "rm":
+      listChecks();
+      rl.question(
+        "Here are your checks, choose which number to remove? ",
+        (answer) => {
+          removeCheck(answer);
+        }
+      );
+      break;
+    //list checks
+    case "l":
+      listChecks();
+      break;
+    //remove all checks
+    case "rmall":
+      removeAllChecks();
+      rl.close();
+      break;
+    //sort checks
+    case "sort":
+      sortChecks();
+      break;
+  }
+});
 
 /**
  * Loads check and looks for duplicates
@@ -7,6 +66,7 @@ const fs = require("fs");
  * add date of creation
  * sort checks
  */
+
 const addCheck = (amount, number) => {
   const checks = loadChecks();
   const duplicateCheck = checks.find((check) => check.number === number);
@@ -20,6 +80,7 @@ const addCheck = (amount, number) => {
     sortChecks(checks);
     console.log(chalk.whiteBright("check added"));
   } else {
+<<<<<<< HEAD
     console.log(chalk.red.inverse("Check date taken"));
   }
 };
@@ -45,8 +106,12 @@ const readCheck = (number) => {
     );
   } else {
     console.log(chalk.red("no check found"));
+=======
+    console.log(chalk.red.inverse("Something Went wrong"));
+>>>>>>> readline
   }
 };
+
 /**
  * saveChecks stringifies check paramenter,
  * writefilesync writes dataJSON to checks.json
@@ -147,8 +212,33 @@ module.exports = {
   saveChecks,
   loadChecks,
   listChecks,
-  readCheck,
   removeCheck,
   removeAllChecks,
   sortChecks,
 };
+// readCheck,
+
+/**
+ * loads checks and looks for check with matching number
+ * if matching check log number and amount values
+ * else log error
+ */
+// const readCheck = (number) => {
+//   const checks = loadChecks();
+//   const matchingCheck = checks.find((check) => check.number === number);
+//   if (matchingCheck) {
+//     console.log(
+//       chalk.greenBright(
+//         chalk.yellow("number: ") +
+//           matchingCheck.number +
+//           "\n" +
+//           chalk.yellow("Amount: $") +
+//           matchingCheck.amount +
+//           chalk.yellow("Date: ") +
+//           matchingCheck.date
+//       )
+//     );
+//   } else {
+//     console.log(chalk.red("no check found"));
+//   }
+// };
