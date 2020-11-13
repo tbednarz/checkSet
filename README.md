@@ -22,8 +22,8 @@ npm -v
 ```git clone https://github.com/tbednarz/checkSet.git```
 
 2. Install node modules
-```cd checkset  <br/>
-   npm install  ```
+```cd checkset ``` <br/>
+``` npm install  ```
 
 # Run
 ```npm start```
