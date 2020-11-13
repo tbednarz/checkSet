@@ -18,9 +18,8 @@ npm -v
 ```
 # Follow the following steps to get development environment running.
 
-1. Clone 'checkset' repository from GitHub
-git clone https://github.com/tbednarz/checkSet.git
-or using ssh
+1. Clone 'checkset' repository from GitHub  
+```git clone https://github.com/tbednarz/checkSet.git```
 
 2. Install node modules
 
