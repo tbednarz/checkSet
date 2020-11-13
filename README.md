@@ -15,17 +15,15 @@ The following software is required to be installed on your system:
 ```
 node -v
 npm -v
-Install
 ```
 # Follow the following steps to get development environment running.
 
-Clone 'check' repository from GitHub
-
+1. Clone 'check' repository from GitHub
 git clone https://github.com/tbednarz/checkSet.git
 or using ssh
 
-Install node modules
+2. Install node modules
 
-cd checkset
-npm install
-npm start
+```cd checkset```
+```npm install```
+```npm start```
