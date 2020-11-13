@@ -27,3 +27,5 @@ npm -v
 
 # Run
 ```npm start```
+
+Once the program is running you will be greeted by a list of commands.
