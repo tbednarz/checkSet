@@ -24,7 +24,7 @@ or using ssh
 
 2. Install node modules
 
-```cd checkset  ```
+```cd checkset  ```<br/>
 ```npm install  ```
 
 # Run
