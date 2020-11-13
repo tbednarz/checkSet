@@ -37,7 +37,7 @@ const saveChecks = (check) => {
 
 const sortChecks = () => {
   const checks = loadChecks();
-  let newChecks = checks.sort(function (a, b) {
+  const newChecks = checks.sort(function (a, b) {
     return a.number - b.number;
   });
   saveChecks(newChecks);
@@ -90,7 +90,7 @@ const listChecks = () => {
  */
 const removeCheck = (id) => {
   const checks = loadChecks();
-  const matchingCheck = checks.filter((check) => check.id != id);
+  const matchingCheck = checks.filter((check) => check.id !== id);
 
   if (matchingCheck.length < checks.length) {
     saveChecks(matchingCheck);
@@ -110,7 +110,7 @@ const removeAllChecks = () => {
   if (loadChecks().length === 0) {
     console.log(chalk.red.bold("Checks are empty"));
   }
-  let newChecks = [];
+  const newChecks = [];
   saveChecks(newChecks);
 };
 
